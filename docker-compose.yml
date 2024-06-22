@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: magazine
+      POSTGRES_PASSWORD: magazine
+      POSTGRES_DB: magazine
+    ports:
+      - "5432:5432"
+
+  magazine:
+    build:
+      context: ./navos
+    ports:
+    - "8001:8000"
+    depends_on:
+      - postgres-db
+    environment:
+      DEBUG_PROD: "False"
+      DEBUG_DEV: "True"
+      DB_NAME: "magazine"
+      DB_USER: "magazine"
+      DB_PASSWORD: "magazine"
+      DB_HOST: "postgres-db"
+      DB_PORT: 5432
+      SECRET_KEY: 'django-insecure-*%&a-^nw%b!c!op0%t5qq#t@y^y^m=(3b_c%i3)3_q6*^a%5m4'
+    
+
+  magazine-react:
+    build:
+      context: ./public
+    ports:
+      - "3000:3000"
+
