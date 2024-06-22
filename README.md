@@ -74,11 +74,11 @@
 
 ### Install 
 
-    pip install -r req.txt
+    pip install -r requirements/prod.txt
 
 ### Usage
 
-    python manage.py test
+    python manage.py test --settings=navos.settings.prod
 
 ### License
 
